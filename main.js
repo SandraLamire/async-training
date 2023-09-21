@@ -174,7 +174,7 @@ sosCallback();
   }
   */
 
-  
+  /*
   function sosPromesses() {
     // On commence par exécuter trois bips courts en série
     bipCourtPromesse()
@@ -220,4 +220,61 @@ sosCallback();
   
   console.log("SOS - PROMESSES");
   sosPromesses();
+*/
 
+/* ASYNC/AWAIT */
+/* avec Promise
+async function sosAsyncAwait() {
+    await bipCourtPromesse();
+    await bipCourtPromesse();
+    await bipCourtPromesse();
+    await bipLongPromesse();
+    await bipLongPromesse();
+    await bipLongPromesse();
+    await bipCourtPromesse();
+    await bipCourtPromesse();
+    await bipCourtPromesse();
+    console.log("STOP");
+  }
+  
+  async function bipLongPromesse() {
+    return new Promise((resolve) => {
+      // Jouez un bip sonore long d'une seconde
+      console.log("Bip long");
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+  }
+  
+  async function bipCourtPromesse() {
+    return new Promise((resolve) => {
+      // Jouez un bip sonore court d'une dixième de seconde
+      console.log("Bip court");
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    });
+  }
+  
+  console.log("SOS - ASYNC/AWAIT");
+  sosAsyncAwait();
+*/
+
+function sosAsyncAwait() {
+    console.log("Bip court");
+    console.log("Bip court");
+    console.log("Bip court");
+    console.log("Bip long");
+    console.log("Bip long");
+    console.log("Bip long");
+    console.log("Bip court");
+    console.log("Bip court");
+    console.log("Bip court");
+    console.log("STOP");
+  }
+  
+  console.log("SOS - ASYNC/AWAIT");
+  sosAsyncAwait();
+  
+  
