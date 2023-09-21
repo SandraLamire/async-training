@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const wait1sWithCallback = (log1s) => {
     setTimeout(log1s, 1000);
 };
@@ -52,3 +54,25 @@ try {
 } catch (error) {
     console.log(`Log after 1s using async/await: "${error}"`);
 }
+
+const config = {
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+    }
+};
+const beerURL = 'https://random-data-api.com/api/v2/beers';
+
+try {
+    const beer = await axios.get(beerURL, config);
+    console.log('The beer we got using await: ', beer.data);
+} catch (error) {
+    console.error('Error: ', error);
+}
+
+axios.get(beerURL, config)
+    .then(beer => {
+        console.log('The beer we got using a promise: ', beer.data);
+    })
+    .catch(error => {
+        console.error('Error: ', error);
+    });
