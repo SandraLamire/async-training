@@ -68,7 +68,7 @@ try {
 }
 
 /*********************** TRAINING ********************************/
-/* TD M07D01 - Code Morse */
+/* TD M07D01 - Code Morse - N'en faire fonctionner qu'1 à la fois, commenter les autres */
 /* Ecrire dans la console SOS en morse (3 bips longs, 3 bips courts, 3 bips longs) de 3 manières différentes */
 
 /* CALLBACK */
@@ -112,6 +112,7 @@ class MorseCode {
 */
 
 /* OU */
+/*
 function sosCallback() {
   function bipCourt(callback) {
     // jouer un bip sonore court d'une dixième de seconde
@@ -146,7 +147,77 @@ function sosCallback() {
   });
 }
 
+console.log("SOS - CALLBACK");
 sosCallback();
+*/
 
+/* PROMISE */
 
+  /* Ce code pose pb: renvoie un bip court puis SOS - PROMESSES 
+     puis 5 bip courts puis 6 bips long puis 6 bip courts puis STOP car
+     Chaque appel à then démarre la prochaine promise dès que la précédente est résolue
+     et cela se produit pour chaque appel à bipCourtPromesse et bipLongPromesse. 
+  
+  function sosPromesses() {
+    bipCourtPromesse()
+      .then(bipCourtPromesse)
+      .then(bipCourtPromesse)
+      .then(bipLongPromesse)
+      .then(bipLongPromesse)
+      .then(bipLongPromesse)
+      .then(bipCourtPromesse)
+      .then(bipCourtPromesse)
+      .then(bipCourtPromesse)
+      .then(() => {
+        console.log("STOP");
+      });
+  }
+  */
+
+  
+  function sosPromesses() {
+    // On commence par exécuter trois bips courts en série
+    bipCourtPromesse()
+      .then(bipCourtPromesse)
+      .then(bipCourtPromesse)
+      .then(() => {
+        // Une fois les trois bips courts terminés, on enchaîne avec trois bips longs en série
+        return bipLongPromesse()
+          .then(bipLongPromesse)
+          .then(bipLongPromesse);
+      })
+      .then(() => {
+        // Enfin, après les trois bips longs, on exécute à nouveau trois bips courts
+        bipCourtPromesse()
+          .then(bipCourtPromesse)
+          .then(bipCourtPromesse)
+          .then(() => {
+            // Et on affiche "STOP" une fois que tout est terminé
+            console.log("STOP");
+          });
+      });
+  }
+  
+  function bipLongPromesse() {
+    return new Promise((resolve) => {
+      // Jouez un bip sonore long d'une seconde
+      console.log("Bip long");
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+  }
+  
+  function bipCourtPromesse() {
+    return new Promise((resolve) => {
+      // Jouez un bip sonore court d'une dixième de seconde
+      console.log("Bip court");
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    });
+  }
+  
+  console.log("SOS - PROMESSES");
+  sosPromesses();
 
