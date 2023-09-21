@@ -1,33 +1,47 @@
+
+/* 
+Modifier les lignes comme suit pour que nodemon met à jour la console à chaque modif :
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js"
+  },
+*/
+
+/******************** EXAMPLES **********************************/  
+
+/* CALLBACK */
 const wait1sWithCallback = (log1s) => {
     setTimeout(log1s, 1000);
 };
 
 const callbackLog1s = () => {
-    console.log("1 seconde s'est écoulée");
+    console.log("CALLBACK : 1 seconde s'est écoulée depuis le callback");
 };
 
 wait1sWithCallback(callbackLog1s);
-console.log('Before callback');
+console.log('CALLBACK : Before callback');
 
 const echec = false;
 
+/* PROMISE */
 const wait1sWithPromise = () => new Promise((resolve, reject) => {
     setTimeout(() => {
         if (echec) {
-            reject('Promesse non résolue');
+            reject('PROMISE : Promesse non résolue');
         }
-        resolve('mon résultat');
+        resolve('PROMISE : mon résultat');
     }, 1000);
 });
 
 wait1sWithPromise()
     .then(data => {
-        console.log(`Données récupérées après 1s: "${data}"`);
+        console.log(`PROMISE : Données récupérées après 1s: "${data}"`);
     })
     .catch(error => {
-        console.log(`Erreur après 1s: ${error}`);
+        console.log(`PROMISE : Erreur après 1s: ${error}`);
     });
 
+/* ASYNC/AWAIT - rajouter "type": "module", dans package.json pour que async fonctionne */
 class Async {
 
     fails = false;
@@ -36,9 +50,9 @@ class Async {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (this.fails) {
-                    reject('Erreur dans la fonction asynchrone');
+                    reject('ASYNC/AWAIT : Erreur dans la fonction asynchrone');
                 }
-                resolve('Données asynchrones');
+                resolve('ASYNC/AWAIT : Données asynchrones');
             }, 1000);
         });
     }
@@ -48,7 +62,10 @@ class Async {
 const asyncInstance = new Async();
 try {
     const result = await asyncInstance.wait1sWithAsyncAwait();
-    console.log(`Log after 1s using async/await: "${result}"`);
+    console.log(`ASYNC/AWAIT : Log after 1s using async/await: "${result}"`);
 } catch (error) {
-    console.log(`Log after 1s using async/await: "${error}"`);
+    console.log(`ASYNC/AWAIT : Log after 1s using async/await: "${error}"`);
 }
+
+/*********************** TRAINING ********************************/
+/* TD M07D01 - Code Morse */
