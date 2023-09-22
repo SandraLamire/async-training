@@ -1,3 +1,4 @@
+import axios from 'axios';    // pour faire des requêtes depuis le navigateur ou depuis Node.js server
 
 /* 
 Modifier les lignes comme suit pour que nodemon met à jour la console à chaque modif :
@@ -277,4 +278,25 @@ function sosAsyncAwait() {
   console.log("SOS - ASYNC/AWAIT");
   sosAsyncAwait();
   
-  
+  /* Obervables */
+const config = {
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+    }
+};
+const beerURL = 'https://random-data-api.com/api/v2/beers';
+
+try {
+    const beer = await axios.get(beerURL, config);
+    console.log('The beer we got using await: ', beer.data);
+} catch (error) {
+    console.error('Error: ', error);
+}
+
+axios.get(beerURL, config)
+    .then(beer => {
+        console.log('The beer we got using a promise: ', beer.data);
+    })
+    .catch(error => {
+        console.error('Error: ', error);
+    });
